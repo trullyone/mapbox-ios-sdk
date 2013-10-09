@@ -51,7 +51,7 @@
 
 #import "RMAttributionViewController.h"
 
-#import "SMCalloutView.h"
+//#import "SMCalloutView.h"
 
 #pragma mark --- begin constants ----
 
@@ -69,7 +69,7 @@
 
 #pragma mark --- end constants ----
 
-@interface RMMapView (PrivateMethods) <UIScrollViewDelegate, UIGestureRecognizerDelegate, RMMapScrollViewDelegate, CLLocationManagerDelegate, SMCalloutViewDelegate>
+@interface RMMapView (PrivateMethods) <UIScrollViewDelegate, UIGestureRecognizerDelegate, RMMapScrollViewDelegate, CLLocationManagerDelegate/*, SMCalloutViewDelegate*/>
 
 @property (nonatomic, assign) UIViewController *viewControllerPresentingAttribution;
 @property (nonatomic, retain) RMUserLocation *userLocation;
@@ -118,11 +118,14 @@
     BOOL _delegateHasAfterMapMove;
     BOOL _delegateHasBeforeMapZoom;
     BOOL _delegateHasAfterMapZoom;
-    BOOL _delegateHasMapViewRegionDidChange;
+    BOOL _delegateHasBeforeMapRotate;
+    BOOL _delegateHasAfterMapRotate;
+    //BOOL _delegateHasMapViewRegionDidChange;
     BOOL _delegateHasDoubleTapOnMap;
     BOOL _delegateHasSingleTapOnMap;
     BOOL _delegateHasSingleTapTwoFingersOnMap;
     BOOL _delegateHasLongPressOnMap;
+    /*
     BOOL _delegateHasTapOnAnnotation;
     BOOL _delegateHasDoubleTapOnAnnotation;
     BOOL _delegateHasLongPressOnAnnotation;
@@ -138,6 +141,7 @@
     BOOL _delegateHasDidSelectAnnotation;
     BOOL _delegateHasDidDeselectAnnotation;
     BOOL _delegateHasWillStartLocatingUser;
+    */
     BOOL _delegateHasDidStopLocatingUser;
     BOOL _delegateHasDidUpdateUserLocation;
     BOOL _delegateHasDidFailToLocateUserWithError;
@@ -153,8 +157,8 @@
     RMFractalTileProjection *_mercatorToTileProjection;
     RMTileSourcesContainer *_tileSourcesContainer;
 
-    NSMutableSet *_annotations;
-    NSMutableSet *_visibleAnnotations;
+    //NSMutableSet *_annotations;
+    //NSMutableSet *_visibleAnnotations;
 
     BOOL _constrainMovement, _constrainMovementByUser;
     RMProjectedRect _constrainingProjectedBounds, _constrainingProjectedBoundsByUser;
@@ -168,7 +172,7 @@
     BOOL _draggingEnabled, _bouncingEnabled;
 
     CGPoint _lastDraggingTranslation;
-    RMAnnotation *_draggedAnnotation;
+    //RMAnnotation *_draggedAnnotation;
 
     CLLocationManager *_locationManager;
 
@@ -187,11 +191,12 @@
 
     NSOperationQueue *_moveDelegateQueue;
     NSOperationQueue *_zoomDelegateQueue;
-
+    NSOperationQueue *_rotateDelegateQueue;
+    
     UIImageView *_logoBug;
 
-    RMAnnotation *_currentAnnotation;
-    SMCalloutView *_currentCallout;
+    //RMAnnotation *_currentAnnotation;
+    //SMCalloutView *_currentCallout;
 
     BOOL _rotateAtMinZoom;
 }
@@ -269,6 +274,9 @@
     _zoomDelegateQueue = [NSOperationQueue new];
     [_zoomDelegateQueue setMaxConcurrentOperationCount:1];
 
+    _rotateDelegateQueue = [NSOperationQueue new];
+    [_rotateDelegateQueue setMaxConcurrentOperationCount:1];
+    
     [self setTileCache:[RMTileCache new]];
 
     if (backgroundImage)
@@ -518,19 +526,22 @@
 
     _delegate = aDelegate;
 
-    _delegateHasBeforeMapMove = [_delegate respondsToSelector:@selector(beforeMapMove:byUser:)];
-    _delegateHasAfterMapMove  = [_delegate respondsToSelector:@selector(afterMapMove:byUser:)];
+    _delegateHasBeforeMapMove = [_delegate respondsToSelector:@selector(mapWillMove:byUser:)];
+    _delegateHasAfterMapMove  = [_delegate respondsToSelector:@selector(mapDidMove:)];
 
-    _delegateHasBeforeMapZoom = [_delegate respondsToSelector:@selector(beforeMapZoom:byUser:)];
-    _delegateHasAfterMapZoom  = [_delegate respondsToSelector:@selector(afterMapZoom:byUser:)];
+    _delegateHasBeforeMapZoom = [_delegate respondsToSelector:@selector(mapWillZoom:byUser:)];
+    _delegateHasAfterMapZoom  = [_delegate respondsToSelector:@selector(mapDidZoom:)];
 
-    _delegateHasMapViewRegionDidChange = [_delegate respondsToSelector:@selector(mapViewRegionDidChange:)];
+    _delegateHasBeforeMapZoom = [_delegate respondsToSelector:@selector(mapWillRotate:byUser:)];
+    _delegateHasAfterMapZoom  = [_delegate respondsToSelector:@selector(mapDidRotate:)];
+    
+    //_delegateHasMapViewRegionDidChange = [_delegate respondsToSelector:@selector(mapViewRegionDidChange:)];
 
     _delegateHasDoubleTapOnMap = [_delegate respondsToSelector:@selector(doubleTapOnMap:at:)];
     _delegateHasSingleTapOnMap = [_delegate respondsToSelector:@selector(singleTapOnMap:at:)];
     _delegateHasSingleTapTwoFingersOnMap = [_delegate respondsToSelector:@selector(singleTapTwoFingersOnMap:at:)];
     _delegateHasLongPressOnMap = [_delegate respondsToSelector:@selector(longPressOnMap:at:)];
-
+/*
     _delegateHasTapOnAnnotation = [_delegate respondsToSelector:@selector(tapOnAnnotation:onMap:)];
     _delegateHasDoubleTapOnAnnotation = [_delegate respondsToSelector:@selector(doubleTapOnAnnotation:onMap:)];
     _delegateHasLongPressOnAnnotation = [_delegate respondsToSelector:@selector(longPressOnAnnotation:onMap:)];
@@ -548,7 +559,7 @@
 
     _delegateHasDidSelectAnnotation = [_delegate respondsToSelector:@selector(mapView:didSelectAnnotation:)];
     _delegateHasDidDeselectAnnotation = [_delegate respondsToSelector:@selector(mapView:didDeselectAnnotation:)];
-
+*/
     _delegateHasWillStartLocatingUser = [_delegate respondsToSelector:@selector(mapViewWillStartLocatingUser:)];
     _delegateHasDidStopLocatingUser = [_delegate respondsToSelector:@selector(mapViewDidStopLocatingUser:)];
     _delegateHasDidUpdateUserLocation = [_delegate respondsToSelector:@selector(mapView:didUpdateUserLocation:)];
@@ -567,7 +578,7 @@
             dispatch_async(dispatch_get_main_queue(), ^(void)
             {
                 if (_delegateHasBeforeMapMove)
-                    [_delegate beforeMapMove:self byUser:flag];
+                    [_delegate mapWillMove:self byUser:flag];
             });
         }
 
@@ -580,7 +591,7 @@
                 dispatch_async(dispatch_get_main_queue(), ^(void)
                 {
                     if (_delegateHasAfterMapMove)
-                        [_delegate afterMapMove:self byUser:flag];
+                        [_delegate mapDidMove:self];
                 });
             }];
         }
@@ -606,7 +617,7 @@
             dispatch_async(dispatch_get_main_queue(), ^(void)
             {
                 if (_delegateHasBeforeMapZoom)
-                    [_delegate beforeMapZoom:self byUser:flag];
+                    [_delegate mapWillZoom:self byUser:flag];
             });
         }
 
@@ -619,7 +630,7 @@
                 dispatch_async(dispatch_get_main_queue(), ^(void)
                 {
                     if (_delegateHasAfterMapZoom)
-                        [_delegate afterMapZoom:self byUser:flag];
+                        [_delegate mapDidZoom:self];
                 });
             }];
         }
@@ -632,6 +643,45 @@
         [_zoomDelegateQueue setSuspended:NO];
     else
         [_zoomDelegateQueue performSelector:@selector(setSuspended:) withObject:[NSNumber numberWithBool:NO] afterDelay:delay];
+}
+
+- (void)registerRotateEventByUser:(BOOL)wasUserEvent
+{
+    @synchronized (_rotateDelegateQueue)
+    {
+        BOOL flag = wasUserEvent;
+        
+        if ([_rotateDelegateQueue operationCount] == 0)
+        {
+            dispatch_async(dispatch_get_main_queue(), ^(void)
+                           {
+                               if (_delegateHasBeforeMapRotate)
+                                   [_delegate mapWillRotate:self byUser:flag];
+                           });
+        }
+        
+        [_rotateDelegateQueue setSuspended:YES];
+        
+        if ([_rotateDelegateQueue operationCount] == 0)
+        {
+            [_rotateDelegateQueue addOperationWithBlock:^(void)
+             {
+                 dispatch_async(dispatch_get_main_queue(), ^(void)
+                                {
+                                    if (_delegateHasAfterMapZoom)
+                                        [_delegate mapDidRotate:self];
+                                });
+             }];
+        }
+    }
+}
+
+- (void)completeRotateEventAfterDelay:(NSTimeInterval)delay
+{
+    if ( ! delay)
+        [_rotateDelegateQueue setSuspended:NO];
+    else
+        [_rotateDelegateQueue performSelector:@selector(setSuspended:) withObject:[NSNumber numberWithBool:NO] afterDelay:delay];
 }
 
 #pragma mark -
@@ -2643,7 +2693,7 @@
 
 #pragma mark -
 #pragma mark Annotations
-
+/*
 - (void)correctScreenPosition:(RMAnnotation *)annotation animated:(BOOL)animated
 {
     RMProjectedRect planetBounds = _projection.planetBounds;
@@ -2973,7 +3023,7 @@
     [self correctScreenPosition:annotation animated:NO];
     return annotation.position;
 }
-
+*/
 #pragma mark -
 #pragma mark User Location
 

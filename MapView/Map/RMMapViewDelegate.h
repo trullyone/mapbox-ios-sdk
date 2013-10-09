@@ -26,9 +26,9 @@
 // POSSIBILITY OF SUCH DAMAGE.
 
 @class RMMapView;
-@class RMMapLayer;
-@class RMMarker;
-@class RMAnnotation;
+//@class RMMapLayer;
+//@class RMMarker;
+//@class RMAnnotation;
 @class RMUserLocation;
 
 typedef enum : NSUInteger {
@@ -54,59 +54,66 @@ typedef enum : NSUInteger {
 *   @param mapView The map view that requested the annotation layer.
 *   @param annotation The object representing the annotation that is about to be displayed. In addition to your custom annotations, this object could be an RMUserLocation object representing the user’s current location.
 *   @return The annotation layer to display for the specified annotation or `nil` if you do not want to display a layer. */
-- (RMMapLayer *)mapView:(RMMapView *)mapView layerForAnnotation:(RMAnnotation *)annotation;
+//- (RMMapLayer *)mapView:(RMMapView *)mapView layerForAnnotation:(RMAnnotation *)annotation;
 
 /** Tells the delegate that the visible layer for an annotation is about to be hidden from view due to scrolling or zooming the map.
 *   @param mapView The map view whose annotation alyer will be hidden.
 *   @param annotation The annotation whose layer will be hidden. */
-- (void)mapView:(RMMapView *)mapView willHideLayerForAnnotation:(RMAnnotation *)annotation;
+//- (void)mapView:(RMMapView *)mapView willHideLayerForAnnotation:(RMAnnotation *)annotation;
 
 /** Tells the delegate that the visible layer for an annotation has been hidden from view due to scrolling or zooming the map.
 *   @param mapView The map view whose annotation layer was hidden.
 *   @param annotation The annotation whose layer was hidden. */
-- (void)mapView:(RMMapView *)mapView didHideLayerForAnnotation:(RMAnnotation *)annotation;
+//- (void)mapView:(RMMapView *)mapView didHideLayerForAnnotation:(RMAnnotation *)annotation;
 
 /** Tells the delegate that one of its annotations was selected.
 *
 *   You can use this method to track changes in the selection state of annotations.
 *   @param mapView The map view containing the annotation.
 *   @param annotation The annotation that was selected. */
-- (void)mapView:(RMMapView *)mapView didSelectAnnotation:(RMAnnotation *)annotation;
+//- (void)mapView:(RMMapView *)mapView didSelectAnnotation:(RMAnnotation *)annotation;
 
 /** Tells the delegate that one of its annotations was deselected.
 *
 *   You can use this method to track changes in the selection state of annotations.
 *   @param mapView The map view containing the annotation.
 *   @param annotation The annotation that was deselected. */
-- (void)mapView:(RMMapView *)mapView didDeselectAnnotation:(RMAnnotation *)annotation;
+//- (void)mapView:(RMMapView *)mapView didDeselectAnnotation:(RMAnnotation *)annotation;
 
 /** @name Responding to Map Position Changes */
 
 /** Tells the delegate when a map is about to move. 
 *   @param map The map view that is about to move.
 *   @param wasUserAction A Boolean indicating whether the map move is in response to a user action or not. */
-- (void)beforeMapMove:(RMMapView *)map byUser:(BOOL)wasUserAction;
+- (void)mapWillMove:(RMMapView *)map byUser:(BOOL)wasUserAction;
 
 /** Tells the delegate when a map has finished moving. 
-*   @param map The map view that has finished moving. 
-*   @param wasUserAction A Boolean indicating whether the map move was in response to a user action or not. */
-- (void)afterMapMove:(RMMapView *)map byUser:(BOOL)wasUserAction;
+*   @param map The map view that has finished moving. */
+- (void)mapDidMove:(RMMapView *)map;
 
 /** Tells the delegate when a map is about to zoom. 
-*   @param map The map view that is about to zoom. 
+*   @param map The map view that is about to zoom.
 *   @param wasUserAction A Boolean indicating whether the map zoom is in response to a user action or not. */
-- (void)beforeMapZoom:(RMMapView *)map byUser:(BOOL)wasUserAction;
+- (void)mapWillZoom:(RMMapView *)map byUser:(BOOL)wasUserAction;
 
 /** Tells the delegate when a map has finished zooming. 
-*   @param map The map view that has finished zooming. 
-*   @param wasUserAction A Boolean indicating whether the map zoom was in response to a user action or not. */
-- (void)afterMapZoom:(RMMapView *)map byUser:(BOOL)wasUserAction;
+*   @param map The map view that has finished zooming. */
+- (void)mapDidZoom:(RMMapView *)map;
 
-/** Tells the delegate that the region displayed by the map view just changed. 
+/** Tells the delegate when a map is about to rotate.
+ *   @param map The map view that is about to rotate.
+ *   @param wasUserAction A Boolean indicating whether the map rotate is in response to a user action or not. */
+- (void)mapWillRotate:(RMMapView *)map byUser:(BOOL)wasUserAction;
+
+/** Tells the delegate when a map has finished rotating.
+ *   @param map The map view that has finished rotating. */
+- (void)mapDidRotate:(RMMapView *)map;
+
+/** Tells the delegate that the region displayed by the map view just changed.
 *
 *   This method is called whenever the currently displayed map region changes. During scrolling, this method may be called many times to report updates to the map position. Therefore, your implementation of this method should be as lightweight as possible to avoid affecting scrolling performance.
 *   @param mapView The map view whose visible region changed. */
-- (void)mapViewRegionDidChange:(RMMapView *)mapView;
+//- (void)mapViewRegionDidChange:(RMMapView *)mapView;
 
 /** @name Responding to Map Gestures */
 
@@ -135,27 +142,27 @@ typedef enum : NSUInteger {
 /** Tells the delegate when the user taps the layer for an annotation. 
 *   @param annotation The annotation that was tapped. 
 *   @param map The map view. */
-- (void)tapOnAnnotation:(RMAnnotation *)annotation onMap:(RMMapView *)map;
+//- (void)tapOnAnnotation:(RMAnnotation *)annotation onMap:(RMMapView *)map;
 
 /** Tells the delegate when the user double-taps the layer for an annotation.
 *   @param annotation The annotation that was double-tapped.
 *   @param map The map view. */
-- (void)doubleTapOnAnnotation:(RMAnnotation *)annotation onMap:(RMMapView *)map;
+//- (void)doubleTapOnAnnotation:(RMAnnotation *)annotation onMap:(RMMapView *)map;
 
 /** Tells the delegate when the user long-presses the layer for an annotation. 
 *   @param annotation The annotation that was long-pressed. 
 *   @param map The map view. */
-- (void)longPressOnAnnotation:(RMAnnotation *)annotation onMap:(RMMapView *)map;
+//- (void)longPressOnAnnotation:(RMAnnotation *)annotation onMap:(RMMapView *)map;
 
 /** Tells the delegate when the user taps the label for an annotation.
 *   @param annotation The annotation whose label was was tapped.
 *   @param map The map view. */
-- (void)tapOnLabelForAnnotation:(RMAnnotation *)annotation onMap:(RMMapView *)map;
+//- (void)tapOnLabelForAnnotation:(RMAnnotation *)annotation onMap:(RMMapView *)map;
 
 /** Tells the delegate when the user double-taps the label for an annotation.
 *   @param annotation The annotation whose label was was double-tapped.
 *   @param map The map view. */
-- (void)doubleTapOnLabelForAnnotation:(RMAnnotation *)annotation onMap:(RMMapView *)map;
+//- (void)doubleTapOnLabelForAnnotation:(RMAnnotation *)annotation onMap:(RMMapView *)map;
 
 /** Tells the delegate that the user tapped one of the annotation layer's accessory buttons.
 *
@@ -165,13 +172,13 @@ typedef enum : NSUInteger {
 *   @param control The control that was tapped. 
 *   @param annotation The annotation whose callout control was tapped. 
 *   @param map The map view containing the specified annotation. */
-- (void)tapOnCalloutAccessoryControl:(UIControl *)control forAnnotation:(RMAnnotation *)annotation onMap:(RMMapView *)map;
+//- (void)tapOnCalloutAccessoryControl:(UIControl *)control forAnnotation:(RMAnnotation *)annotation onMap:(RMMapView *)map;
 
 /** Asks the delegate whether the user should be allowed to drag the layer for an annotation. 
 *   @param map The map view. 
 *   @param annotation The annotation the user is attempting to drag. 
 *   @return A Boolean value indicating whether the user should be allowed to drag the annotation layer. */
-- (BOOL)mapView:(RMMapView *)map shouldDragAnnotation:(RMAnnotation *)annotation;
+//- (BOOL)mapView:(RMMapView *)map shouldDragAnnotation:(RMAnnotation *)annotation;
 
 /** Tells the delegate that the user is dragging an annotation layer. 
 *
@@ -179,14 +186,14 @@ typedef enum : NSUInteger {
 *   @param map The map view. 
 *   @param annotation The annotation being dragged. 
 *   @param delta The delta of movement since the last drag notification. */
-- (void)mapView:(RMMapView *)map didDragAnnotation:(RMAnnotation *)annotation withDelta:(CGPoint)delta;
+//- (void)mapView:(RMMapView *)map didDragAnnotation:(RMAnnotation *)annotation withDelta:(CGPoint)delta;
 
 /** Tells the delegate that the user has finished dragging an annotation layer. 
 *
 *   If the screen position of the annotation layer has been changed since the drag operation started, you should update its coordinate to the final location in order to ensure that the annotation is displayed there going forward. Otherwise, the next time the annotations are adjusted, it will revert to its original position from before the drag. 
 *   @param map The map view. 
 *   @param annotation The annotation that was dragged. */
-- (void)mapView:(RMMapView *)map didEndDragAnnotation:(RMAnnotation *)annotation;
+//- (void)mapView:(RMMapView *)map didEndDragAnnotation:(RMAnnotation *)annotation;
 
 /** @name Tracking the User Location */
 

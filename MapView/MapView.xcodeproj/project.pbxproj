@@ -85,8 +85,6 @@
 		D1437B37122869E400888DAE /* RMDBMapSource.h in Headers */ = {isa = PBXBuildFile; fileRef = D1437B33122869E400888DAE /* RMDBMapSource.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		DD1985C1165C5F6400DF667F /* RMTileMillSource.h in Headers */ = {isa = PBXBuildFile; fileRef = DD1985BF165C5F6400DF667F /* RMTileMillSource.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DD1985C2165C5F6400DF667F /* RMTileMillSource.m in Sources */ = {isa = PBXBuildFile; fileRef = DD1985C0165C5F6400DF667F /* RMTileMillSource.m */; };
-		DD1E3C6E161F954F004FC649 /* SMCalloutView.h in Headers */ = {isa = PBXBuildFile; fileRef = DD1E3C6C161F954F004FC649 /* SMCalloutView.h */; };
-		DD1E3C6F161F954F004FC649 /* SMCalloutView.m in Sources */ = {isa = PBXBuildFile; fileRef = DD1E3C6D161F954F004FC649 /* SMCalloutView.m */; };
 		DD280D1416EFDDD30014B549 /* examples.map-z2effxa8.json in Resources */ = {isa = PBXBuildFile; fileRef = DD280D1216EFDDD30014B549 /* examples.map-z2effxa8.json */; };
 		DD280D1516EFDDD30014B549 /* examples.map-zswgei2n.json in Resources */ = {isa = PBXBuildFile; fileRef = DD280D1316EFDDD30014B549 /* examples.map-zswgei2n.json */; };
 		DD2B374514CF8041008DE8CB /* FMDatabase.h in Headers */ = {isa = PBXBuildFile; fileRef = DD2B373F14CF8041008DE8CB /* FMDatabase.h */; };
@@ -245,8 +243,6 @@
 		D1437B33122869E400888DAE /* RMDBMapSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMDBMapSource.h; sourceTree = "<group>"; };
 		DD1985BF165C5F6400DF667F /* RMTileMillSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMTileMillSource.h; sourceTree = "<group>"; };
 		DD1985C0165C5F6400DF667F /* RMTileMillSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RMTileMillSource.m; sourceTree = "<group>"; };
-		DD1E3C6C161F954F004FC649 /* SMCalloutView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SMCalloutView.h; path = SMCalloutView/SMCalloutView.h; sourceTree = "<group>"; };
-		DD1E3C6D161F954F004FC649 /* SMCalloutView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SMCalloutView.m; path = SMCalloutView/SMCalloutView.m; sourceTree = "<group>"; };
 		DD280D1216EFDDD30014B549 /* examples.map-z2effxa8.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = "examples.map-z2effxa8.json"; path = "Map/Resources/examples.map-z2effxa8.json"; sourceTree = "<group>"; };
 		DD280D1316EFDDD30014B549 /* examples.map-zswgei2n.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = "examples.map-zswgei2n.json"; path = "Map/Resources/examples.map-zswgei2n.json"; sourceTree = "<group>"; };
 		DD2B373F14CF8041008DE8CB /* FMDatabase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabase.h; sourceTree = "<group>"; };
@@ -560,16 +556,6 @@
 			name = Attribution;
 			sourceTree = "<group>";
 		};
-		DD76E12E161E347B00F60F43 /* SMCallout */ = {
-			isa = PBXGroup;
-			children = (
-				DD1E3C6C161F954F004FC649 /* SMCalloutView.h */,
-				DD1E3C6D161F954F004FC649 /* SMCalloutView.m */,
-			);
-			name = SMCallout;
-			path = Map;
-			sourceTree = "<group>";
-		};
 		DD8FD7571559ED930044D96F /* User Location */ = {
 			isa = PBXGroup;
 			children = (
@@ -628,7 +614,6 @@
 				B8474B8C0EB40094006A0BC1 /* FMDB */,
 				DDC4BEEE152E3DEC00089409 /* GRMustache */,
 				DDDFF7FE165D5BA200A9D877 /* Proj4 */,
-				DD76E12E161E347B00F60F43 /* SMCallout */,
 			);
 			name = Externals;
 			sourceTree = "<group>";
@@ -727,7 +712,6 @@
 				DD2B374F14CF814F008DE8CB /* FMDatabasePool.h in Headers */,
 				DD2B375114CF814F008DE8CB /* FMDatabaseQueue.h in Headers */,
 				DD5A200B15CAD09400FE4157 /* GRMustache.h in Headers */,
-				DD1E3C6E161F954F004FC649 /* SMCalloutView.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -880,7 +864,6 @@
 				DD5FA1EC15E2B020004EB6C5 /* RMLoadingTileView.m in Sources */,
 				DD41960216250ED40049E6BA /* RMTileCacheDownloadOperation.m in Sources */,
 				DD4195CA162356900049E6BA /* RMBingSource.m in Sources */,
-				DD1E3C6F161F954F004FC649 /* SMCalloutView.m in Sources */,
 				DD7C7E39164C894F0021CCA5 /* RMStaticMapView.m in Sources */,
 				DDE357E81651F570001DB842 /* RMPointAnnotation.m in Sources */,
 				DDE357F1165223A3001DB842 /* RMShapeAnnotation.m in Sources */,
