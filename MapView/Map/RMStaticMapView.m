@@ -128,7 +128,7 @@
         });
     }
 }
-
+/*
 - (void)addAnnotation:(RMAnnotation *)annotation
 {
     annotation.layer = [[RMMarker alloc] initWithMapBoxMarkerImage:[annotation.userInfo objectForKey:@"marker-symbol"]
@@ -137,5 +137,5 @@
 
     [super addAnnotation:annotation];
 }
-
+*/
 @end

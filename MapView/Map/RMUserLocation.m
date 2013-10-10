@@ -61,14 +61,15 @@
 
 - (RMMapLayer *)layer
 {
+    
     if ( ! super.layer)
     {
-        if ([self.mapView.delegate respondsToSelector:@selector(mapView:layerForAnnotation:)])
+/*        if ([self.mapView.delegate respondsToSelector:@selector(mapView:layerForAnnotation:)])
             super.layer = [self.mapView.delegate mapView:self.mapView layerForAnnotation:self];
 
         if (super.layer)
             self.hasCustomLayer = YES;
-
+*/
         if ( ! super.layer)
             super.layer = [[RMMarker alloc] initWithUIImage:[RMMapView resourceImageNamed:@"TrackingDot.png"]];
 

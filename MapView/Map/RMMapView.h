@@ -299,49 +299,49 @@ typedef enum : NSUInteger {
 /** @name Annotating the Map */
 
 /** The annotations currently added to the map. Includes user location annotations, if any. */
-@property (nonatomic, weak, readonly) NSArray *annotations;
+//@property (nonatomic, weak, readonly) NSArray *annotations;
 
 /** The annotations currently visible on the map. May include annotations currently shown in clusters. */
-@property (nonatomic, weak, readonly) NSArray *visibleAnnotations;
+//@property (nonatomic, weak, readonly) NSArray *visibleAnnotations;
 
 /** Add an annotation to the map. 
 *   @param annotation The annotation to add. */
-- (void)addAnnotation:(RMAnnotation *)annotation;
+//- (void)addAnnotation:(RMAnnotation *)annotation;
 
 /** Add one or more annotations to the map. 
 *   @param annotations An array containing the annotations to add to the map. */
-- (void)addAnnotations:(NSArray *)annotations;
+//- (void)addAnnotations:(NSArray *)annotations;
 
 /** Remove an annotation from the map. 
 *   @param annotation The annotation to remove. */
-- (void)removeAnnotation:(RMAnnotation *)annotation;
+//- (void)removeAnnotation:(RMAnnotation *)annotation;
 
 /** Remove one or more annotations from the map. 
 *   @param annotations An array containing the annotations to remove from the map. */
-- (void)removeAnnotations:(NSArray *)annotations;
+//- (void)removeAnnotations:(NSArray *)annotations;
 
 /** Remove all annotations from the map. This does not remove user location annotations, if any. */
-- (void)removeAllAnnotations;
+//- (void)removeAllAnnotations;
 
 /** The screen position for a given annotation. 
 *   @param annotation The annotation for which to return the current screen position.
 *   @return The screen position of the annotation. */
-- (CGPoint)mapPositionForAnnotation:(RMAnnotation *)annotation;
+//- (CGPoint)mapPositionForAnnotation:(RMAnnotation *)annotation;
 
 /** Selects the specified annotation and displays a callout view for it.
 *
 *   If the specified annotation is not onscreen, and therefore does not have an associated annotation layer, this method has no effect.
 *   @param annotation The annotation object to select.
 *   @param animated If `YES`, the callout view is animated into position. */
-- (void)selectAnnotation:(RMAnnotation *)annotation animated:(BOOL)animated;
+//- (void)selectAnnotation:(RMAnnotation *)annotation animated:(BOOL)animated;
 
 /** Deselects the specified annotation and hides its callout view.
 *   @param annotation The annotation object to deselect.
 *   @param animated If `YES`, the callout view is animated offscreen. */
-- (void)deselectAnnotation:(RMAnnotation *)annotation animated:(BOOL)animated;
+//- (void)deselectAnnotation:(RMAnnotation *)annotation animated:(BOOL)animated;
 
 /** The annotation that is currently selected. */
-@property (nonatomic, strong) RMAnnotation *selectedAnnotation;
+//@property (nonatomic, strong) RMAnnotation *selectedAnnotation;
 
 #pragma mark - TileSources
 

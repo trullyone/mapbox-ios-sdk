@@ -105,7 +105,7 @@
                             [jsonString replaceCharactersInRange:NSMakeRange(0, 5)                       withString:@""];
                             [jsonString replaceCharactersInRange:NSMakeRange([jsonString length] - 2, 2) withString:@""];
                         }
-                        
+                        /*
                         id jsonObject = nil;
                         
                         if ((jsonObject = [NSJSONSerialization JSONObjectWithData:[jsonString dataUsingEncoding:NSUTF8StringEncoding] options:0 error:nil]) && [jsonObject isKindOfClass:[NSDictionary class]])
@@ -133,7 +133,7 @@
                                     [mapView addAnnotation:annotation];
                                 });
                             }
-                        }
+                        }*/
                     }
                 }
             });            
