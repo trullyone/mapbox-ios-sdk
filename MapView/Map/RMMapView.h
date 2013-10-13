@@ -115,7 +115,7 @@ typedef enum : NSUInteger {
 *   If this is set to NO, a small disclosure button will be added to the lower-right of the map view, allowing the user to tap it to display a modal view showing map data attribution info. The modal presentation uses a page curl animation to reveal the attribution info under the map view.
 *
 *   The default value is NO, meaning that attribution info will be shown. Please ensure that the terms & conditions of any map data used in your application are satisfied before setting this value to YES. */
-@property (nonatomic, assign) BOOL hideAttribution;
+//@property (nonatomic, assign) BOOL hideAttribution;
 
 /** @name Fine-Tuning the Map Appearance */
 
@@ -132,7 +132,7 @@ typedef enum : NSUInteger {
 @property (nonatomic, assign) BOOL debugTiles;
 
 /** A Boolean value indicating whether to show a small logo in the corner of the map view. Defaults to `YES`. */
-@property (nonatomic, assign) BOOL showLogoBug;
+//@property (nonatomic, assign) BOOL showLogoBug;
 
 #pragma mark - Initializers
 
@@ -483,20 +483,20 @@ typedef enum : NSUInteger {
 *   This property does not indicate whether the user’s position is actually visible on the map, only whether the map view is allowed to display it. To determine whether the user’s position is visible, use the userLocationVisible property. The default value of this property is `NO`.
 *
 *   Setting this property to `YES` causes the map view to use the Core Location framework to find the current location. As long as this property is `YES`, the map view continues to track the user’s location and update it periodically. */
-@property (nonatomic, assign)   BOOL showsUserLocation;
+//@property (nonatomic, assign)   BOOL showsUserLocation;
 
 /** The annotation object representing the user’s current location. (read-only) */
-@property (nonatomic, readonly) RMUserLocation *userLocation;
+//@property (nonatomic, readonly) RMUserLocation *userLocation;
 
 /** A Boolean value indicating whether the device’s current location is visible in the map view. (read-only)
 *
 *   This property uses the horizontal accuracy of the current location to determine whether the user’s location is visible. Thus, this property is `YES` if the specific coordinate is offscreen but the rectangle surrounding that coordinate (and defined by the horizontal accuracy value) is partially onscreen.
 *
 *   If the user’s location cannot be determined, this property contains the value `NO`. */
-@property (nonatomic, readonly, getter=isUserLocationVisible) BOOL userLocationVisible;
+//@property (nonatomic, readonly, getter=isUserLocationVisible) BOOL userLocationVisible;
 
 /** The mode used to track the user location. */
-@property (nonatomic, assign)   RMUserTrackingMode userTrackingMode;
+//@property (nonatomic, assign)   RMUserTrackingMode userTrackingMode;
 
 /** Whether the map view should display a heading calibration alert when necessary. The default value is `YES`. */
 @property (nonatomic, assign)   BOOL displayHeadingCalibration;
@@ -507,6 +507,6 @@ typedef enum : NSUInteger {
 *
 *   @param mode The mode used to track the user location. 
 *   @param animated Whether changes to the map center or rotation should be animated when the mode is changed. */
-- (void)setUserTrackingMode:(RMUserTrackingMode)mode animated:(BOOL)animated;
+//- (void)setUserTrackingMode:(RMUserTrackingMode)mode animated:(BOOL)animated;
 
 @end

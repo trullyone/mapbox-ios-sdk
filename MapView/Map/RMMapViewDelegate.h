@@ -113,7 +113,7 @@ typedef enum : NSUInteger {
 *
 *   This method is called whenever the currently displayed map region changes. During scrolling, this method may be called many times to report updates to the map position. Therefore, your implementation of this method should be as lightweight as possible to avoid affecting scrolling performance.
 *   @param mapView The map view whose visible region changed. */
-//- (void)mapViewRegionDidChange:(RMMapView *)mapView;
+- (void)mapViewRegionDidChange:(RMMapView *)mapView;
 
 /** @name Responding to Map Gestures */
 

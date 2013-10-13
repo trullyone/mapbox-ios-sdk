@@ -155,6 +155,8 @@ typedef enum {
 
 - (void)updateAppearance
 {
+//Todo: replace it by using of annotation manager 
+    /*
     // "selection" state
     //
     _segmentedControl.selectedSegmentIndex = (_mapView.userTrackingMode == RMUserTrackingModeNone ? UISegmentedControlNoSegment : 0);
@@ -219,11 +221,13 @@ typedef enum {
 
             _state = (_mapView.userTrackingMode == RMUserTrackingModeFollowWithHeading ? RMUserTrackingButtonStateHeading : RMUserTrackingButtonStateLocation);
         }
-    }
+    }*/
 }
 
 - (void)changeMode:(id)sender
 {
+//Todo: replace it by using of annotation manager
+    /*
     if (_mapView)
     {
         switch (_mapView.userTrackingMode)
@@ -252,7 +256,7 @@ typedef enum {
             }
         }
     }
-
+*/
     [self updateAppearance];
 }
 

@@ -81,7 +81,7 @@
 
 - (BOOL)isUpdating
 {
-    return (self.mapView.userTrackingMode != RMUserTrackingModeNone);
+    return NO; //(self.mapView.userTrackingMode != RMUserTrackingModeNone);
 }
 
 - (void)setLocation:(CLLocation *)newLocation
