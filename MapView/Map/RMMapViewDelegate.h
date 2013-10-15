@@ -201,13 +201,13 @@ typedef enum : NSUInteger {
 *
 *   This method is called when the value of the showsUserLocation property changes to YES.
 *   @param mapView The map view that is tracking the user’s location. */
-- (void)mapViewWillStartLocatingUser:(RMMapView *)mapView;
+//- (void)mapViewWillStartLocatingUser:(RMMapView *)mapView;
 
 /** Tells the delegate that the map view stopped tracking the user’s location.
 *
 *   This method is called when the value of the showsUserLocation property changes to NO.
 *   @param mapView The map view that stopped tracking the user’s location. */
-- (void)mapViewDidStopLocatingUser:(RMMapView *)mapView;
+//- (void)mapViewDidStopLocatingUser:(RMMapView *)mapView;
 
 /** Tells the delegate that the location of the user was updated.
 *
@@ -216,17 +216,17 @@ typedef enum : NSUInteger {
 *   This method is not called if the application is currently running in the background. If you want to receive location updates while running in the background, you must use the Core Location framework.
 *   @param mapView The map view that is tracking the user’s location.
 *   @param userLocation The location object representing the user’s latest location. */
-- (void)mapView:(RMMapView *)mapView didUpdateUserLocation:(RMUserLocation *)userLocation;
+//- (void)mapView:(RMMapView *)mapView didUpdateUserLocation:(RMUserLocation *)userLocation;
 
 /** Tells the delegate that an attempt to locate the user’s position failed.
 *   @param mapView The map view that is tracking the user’s location.
 *   @param error An error object containing the reason why location tracking failed. */
-- (void)mapView:(RMMapView *)mapView didFailToLocateUserWithError:(NSError *)error;
+//- (void)mapView:(RMMapView *)mapView didFailToLocateUserWithError:(NSError *)error;
 
 /** Tells the delegate that the user tracking mode changed.
 *   @param mapView The map view whose user tracking mode changed.
 *   @param mode The mode used to track the user’s location.
 *   @param animated If YES, the change from the current mode to the new mode is animated; otherwise, it is not. This parameter affects only tracking mode changes. Changes to the user location or heading are always animated. */
-- (void)mapView:(RMMapView *)mapView didChangeUserTrackingMode:(RMUserTrackingMode)mode animated:(BOOL)animated;
+//- (void)mapView:(RMMapView *)mapView didChangeUserTrackingMode:(RMUserTrackingMode)mode animated:(BOOL)animated;
 
 @end

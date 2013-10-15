@@ -68,7 +68,7 @@ typedef enum : NSUInteger {
 *   A map view sends messages to its delegate regarding the loading of map data and changes in the portion of the map being displayed. The delegate also manages the annotation layers used to highlight points of interest on the map.
 *
 *   The delegate should implement the methods of the RMMapViewDelegate protocol. */
-@property (nonatomic, weak) IBOutlet id <RMMapViewDelegate>delegate;
+@property (nonatomic, weak) IBOutlet id <RMMapViewDelegate> delegate;
 
 #pragma mark - View properties
 
@@ -94,7 +94,7 @@ typedef enum : NSUInteger {
 /** A custom deceleration mode for the map view for drag operations. Set to `RMMapDecelerationOff` to disable map drag deceleration. The default value is `RMMapDecelerationFast`. */
 @property (nonatomic, assign) RMMapDecelerationMode decelerationMode;
 
-@property (nonatomic, assign)   double metersPerPixel;
+@property (nonatomic, assign) double metersPerPixel;
 @property (nonatomic, readonly) double scaledMetersPerPixel;
 @property (nonatomic, readonly) double scaleDenominator; // The denominator in a cartographic scale like 1/24000, 1/50000, 1/2000000.
 @property (nonatomic, readonly) float screenScale;
@@ -169,6 +169,21 @@ typedef enum : NSUInteger {
 + (UIImage *)resourceImageNamed:(NSString *)imageName;
 + (NSString *)pathForBundleResourceNamed:(NSString *)name ofType:(NSString *)extension;
 
+#pragma mark - Rotation
+
+/** The angle in degrees by which the map view is rotated. */
+@property (nonatomic, assign) CGFloat mapAngle;
+
+/** Rotate the map around the map center to a given angle in degrees.
+ *   @param coordinate A 'CGFloat' in degrees to set as the map angle.
+ *   @param animated Whether to animate the change to the map angle. */
+- (void)setMapAngle:(CGFloat)angle animated:(BOOL)animated;
+
+/** Rotate the map around the map center by a given delta in degrees.
+ *   @param delta A `CGFloat` in degrees by which to change the map angle.
+ *   @param animated Whether to animate the change to the map angle.*/
+- (void)rotateBy:(CGFloat)delta animated:(BOOL)animated;
+
 #pragma mark - Movement
 
 /** @name Panning the Map */
@@ -192,6 +207,11 @@ typedef enum : NSUInteger {
 /** Move the map center by a given delta. 
 *   @param delta A `CGSize` by which to move the map center. */
 - (void)moveBy:(CGSize)delta;
+
+/** Move the map center by a given delta.
+ *   @param delta A `CGSize` by which to move the map center. 
+ *   @param animated Whether to animate the change to the map center.*/
+- (void)moveBy:(CGSize)delta animated:(BOOL)animated;
 
 #pragma mark - Zoom
 
@@ -499,7 +519,7 @@ typedef enum : NSUInteger {
 //@property (nonatomic, assign)   RMUserTrackingMode userTrackingMode;
 
 /** Whether the map view should display a heading calibration alert when necessary. The default value is `YES`. */
-@property (nonatomic, assign)   BOOL displayHeadingCalibration;
+//@property (nonatomic, assign)   BOOL displayHeadingCalibration;
 
 /** Set the mode used to track the user location. 
 *
@@ -508,5 +528,11 @@ typedef enum : NSUInteger {
 *   @param mode The mode used to track the user location. 
 *   @param animated Whether changes to the map center or rotation should be animated when the mode is changed. */
 //- (void)setUserTrackingMode:(RMUserTrackingMode)mode animated:(BOOL)animated;
+#pragma mark -
+#pragma mark Map Overlay Views
+
+-(void)addMapOverlayView:(UIView *) overlayView;
+
+-(void)removeMapOverlayView:(UIView *) overlayView;
 
 @end

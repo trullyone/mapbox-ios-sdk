@@ -69,7 +69,7 @@
 
 #pragma mark --- end constants ----
 
-@interface RMMapView (PrivateMethods) <UIScrollViewDelegate, UIGestureRecognizerDelegate, RMMapScrollViewDelegate, CLLocationManagerDelegate/*, SMCalloutViewDelegate*/>
+@interface RMMapView (PrivateMethods) <UIScrollViewDelegate, UIGestureRecognizerDelegate, RMMapScrollViewDelegate/*, CLLocationManagerDelegate/ *, SMCalloutViewDelegate*/>
 
 //@property (nonatomic, assign) UIViewController *viewControllerPresentingAttribution;
 //@property (nonatomic, retain) RMUserLocation *userLocation;
@@ -90,7 +90,7 @@
 @end
 
 #pragma mark -
-
+/*
 @interface RMUserLocation (PrivateMethods)
 
 @property (nonatomic, getter=isUpdating) BOOL updating;
@@ -99,7 +99,7 @@
 @property (nonatomic, assign) BOOL hasCustomLayer;
 
 @end
-
+*/
 #pragma mark -
 
 @interface RMAnnotation (PrivateMethods)
@@ -140,13 +140,13 @@
     BOOL _delegateHasDidHideLayerForAnnotation;
     BOOL _delegateHasDidSelectAnnotation;
     BOOL _delegateHasDidDeselectAnnotation;
-    */
+    
     BOOL _delegateHasWillStartLocatingUser;
     BOOL _delegateHasDidStopLocatingUser;
     BOOL _delegateHasDidUpdateUserLocation;
     BOOL _delegateHasDidFailToLocateUserWithError;
     BOOL _delegateHasDidChangeUserTrackingMode;
-
+*/
     UIView *_backgroundView;
     RMMapScrollView *_mapScrollView;
     //RMMapOverlayView *_overlayView;
@@ -187,7 +187,7 @@
     //UIButton *_attributionButton;
 
     CGAffineTransform _mapTransform;
-    CATransform3D _annotationTransform;
+    //CATransform3D _annotationTransform;
 
     NSOperationQueue *_moveDelegateQueue;
     NSOperationQueue *_zoomDelegateQueue;
@@ -217,7 +217,7 @@
 //@synthesize userLocation = _userLocation;
 //@synthesize showsUserLocation = _showsUserLocation;
 //@synthesize userTrackingMode = _userTrackingMode;
-@synthesize displayHeadingCalibration = _displayHeadingCalibration;
+//@synthesize displayHeadingCalibration = _displayHeadingCalibration;
 @synthesize missingTilesDepth = _missingTilesDepth;
 @synthesize debugTiles = _debugTiles;
 //@synthesize hideAttribution = _hideAttribution;
@@ -290,7 +290,9 @@
     }
 
     if (initialTileSourceMinZoomLevel < newTilesource.minZoom) initialTileSourceMinZoomLevel = newTilesource.minZoom;
+    
     if (initialTileSourceMaxZoomLevel > newTilesource.maxZoom) initialTileSourceMaxZoomLevel = newTilesource.maxZoom;
+    
     [self setTileSourcesMinZoom:initialTileSourceMinZoomLevel];
     [self setTileSourcesMaxZoom:initialTileSourceMaxZoomLevel];
     [self setTileSourcesZoom:initialTileSourceZoomLevel];
@@ -299,13 +301,15 @@
     [self setCenterCoordinate:initialCenterCoordinate animated:NO];
 
     [self setDecelerationMode:RMMapDecelerationFast];
-
+    
+    //[self setMapAngle: 0.f animated: NO];
+    
     //self.showLogoBug = YES;
 
-    self.displayHeadingCalibration = YES;
+    //self.displayHeadingCalibration = YES;
 
     _mapTransform = CGAffineTransformIdentity;
-    _annotationTransform = CATransform3DIdentity;
+    //_annotationTransform = CATransform3DIdentity;
 
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(handleMemoryWarningNotification:)
@@ -453,20 +457,20 @@
 {
 	[self didReceiveMemoryWarning];
 }
-
+/*
 - (void)handleWillChangeOrientationNotification:(NSNotification *)notification
 {
     // send a dummy heading update to force re-rotation
     //
-/*
+/ *
     if (self.userTrackingMode == RMUserTrackingModeFollowWithHeading)
         [self locationManager:_locationManager didUpdateHeading:_locationManager.heading];
-*/
+* /
     // fix UIScrollView artifacts from rotation at minZoomScale
     //
     _rotateAtMinZoom = fabs(self.zoom - self.minZoom) < 0.1;
 }
-
+/ *
 - (void)handleDidChangeOrientationNotification:(NSNotification *)notification
 {
     if (_rotateAtMinZoom)
@@ -474,7 +478,7 @@
 
     [self updateHeadingForDeviceOrientation];
 }
-/*
+/ *
 - (void)layoutSubviews
 {
     if ( ! self.viewControllerPresentingAttribution && ! _hideAttribution)
@@ -561,11 +565,11 @@
     _delegateHasDidSelectAnnotation = [_delegate respondsToSelector:@selector(mapView:didSelectAnnotation:)];
     _delegateHasDidDeselectAnnotation = [_delegate respondsToSelector:@selector(mapView:didDeselectAnnotation:)];
 */
-    _delegateHasWillStartLocatingUser = [_delegate respondsToSelector:@selector(mapViewWillStartLocatingUser:)];
-    _delegateHasDidStopLocatingUser = [_delegate respondsToSelector:@selector(mapViewDidStopLocatingUser:)];
-    _delegateHasDidUpdateUserLocation = [_delegate respondsToSelector:@selector(mapView:didUpdateUserLocation:)];
-    _delegateHasDidFailToLocateUserWithError = [_delegate respondsToSelector:@selector(mapView:didFailToLocateUserWithError:)];
-    _delegateHasDidChangeUserTrackingMode = [_delegate respondsToSelector:@selector(mapView:didChangeUserTrackingMode:animated:)];
+    //_delegateHasWillStartLocatingUser = [_delegate respondsToSelector:@selector(mapViewWillStartLocatingUser:)];
+    //_delegateHasDidStopLocatingUser = [_delegate respondsToSelector:@selector(mapViewDidStopLocatingUser:)];
+    //_delegateHasDidUpdateUserLocation = [_delegate respondsToSelector:@selector(mapView:didUpdateUserLocation:)];
+    //_delegateHasDidFailToLocateUserWithError = [_delegate respondsToSelector:@selector(mapView:didFailToLocateUserWithError:)];
+    //_delegateHasDidChangeUserTrackingMode = [_delegate respondsToSelector:@selector(mapView:didChangeUserTrackingMode:animated:)];
 }
 
 - (void)registerMoveEventByUser:(BOOL)wasUserEvent
@@ -655,10 +659,10 @@
         if ([_rotateDelegateQueue operationCount] == 0)
         {
             dispatch_async(dispatch_get_main_queue(), ^(void)
-                           {
-                               if (_delegateHasBeforeMapRotate)
-                                   [_delegate mapWillRotate:self byUser:flag];
-                           });
+               {
+                   if (_delegateHasBeforeMapRotate)
+                       [_delegate mapWillRotate:self byUser:flag];
+               });
         }
         
         [_rotateDelegateQueue setSuspended:YES];
@@ -668,10 +672,10 @@
             [_rotateDelegateQueue addOperationWithBlock:^(void)
              {
                  dispatch_async(dispatch_get_main_queue(), ^(void)
-                                {
-                                    if (_delegateHasAfterMapZoom)
-                                        [_delegate mapDidRotate:self];
-                                });
+                    {
+                        if (_delegateHasAfterMapRotate)
+                            [_delegate mapDidRotate:self];
+                    });
              }];
         }
     }
@@ -908,6 +912,19 @@
     _mapScrollView.contentOffset = contentOffset;
 
     [self completeMoveEventAfterDelay:0];
+}
+
+- (void)moveBy:(CGSize)delta animated:(BOOL)animated
+{
+    [self registerMoveEventByUser: NO];
+    
+    CGPoint contentOffset = _mapScrollView.contentOffset;
+    contentOffset.x += delta.width;
+    contentOffset.y += delta.height;
+    [_mapScrollView setContentOffset: contentOffset
+                            animated: animated];
+    if (!animated)
+        [self completeMoveEventAfterDelay:0];
 }
 
 #pragma mark -
@@ -3146,10 +3163,10 @@
 
                                  _mapScrollView.transform = _mapTransform;
                                  _overlayView.transform   = _mapTransform;
-/ *
+
                                  for (RMAnnotation *annotation in _annotations)
                                      if ([annotation.layer isKindOfClass:[RMMarker class]] && ! annotation.isUserLocationAnnotation)
-                                         annotation.layer.transform = _annotationTransform;* /
+                                         annotation.layer.transform = _annotationTransform;
                              }
                              completion:nil];
 
@@ -3282,9 +3299,10 @@
         [_delegate mapView:self didChangeUserTrackingMode:_userTrackingMode animated:animated];
 }
 */
+/*
 - (void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation
 {
-/*    
+/ *
     if ( ! _showsUserLocation || _mapScrollView.isDragging || ! newLocation || ! CLLocationCoordinate2DIsValid(newLocation.coordinate))
         return;
 
@@ -3453,7 +3471,7 @@
     }
 
     if ( ! [_annotations containsObject:self.userLocation])
-        [self addAnnotation:self.userLocation];*/
+        [self addAnnotation:self.userLocation];* /
 }
 
 - (BOOL)locationManagerShouldDisplayHeadingCalibration:(CLLocationManager *)manager
@@ -3466,7 +3484,7 @@
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateHeading:(CLHeading *)newHeading
 {
-    /*
+    / *
     if ( ! _showsUserLocation || _mapScrollView.isDragging || newHeading.headingAccuracy < 0)
         return;
 
@@ -3513,16 +3531,16 @@
                          completion:nil];
 
         [CATransaction commit];
-    }*/
+    }* /
 }
 
 - (void)locationManager:(CLLocationManager *)manager didChangeAuthorizationStatus:(CLAuthorizationStatus)status
 {
-    /*if (status == kCLAuthorizationStatusDenied || status == kCLAuthorizationStatusRestricted)
+    if (status == kCLAuthorizationStatusDenied || status == kCLAuthorizationStatusRestricted)
     {
         self.userTrackingMode  = RMUserTrackingModeNone;
         self.showsUserLocation = NO;
-    }*/
+    }
 }
 
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
@@ -3569,7 +3587,7 @@
         }
     }
 }
-
+*/
 #pragma mark -
 #pragma mark Attribution
 /*
@@ -3625,4 +3643,61 @@
     }
 }
 */
+#pragma mark -
+#pragma mark Rotation
+
+- (void)setMapAngle:(CGFloat)angle animated:(BOOL)animated
+{
+    CGFloat delta = angle - self.mapAngle;
+    if(delta < 0.001f)
+        return;
+    self.mapAngle = angle;
+    [self applyMapRotationAnimated: animated];
+}
+
+
+- (void)rotateBy:(CGFloat)delta animated:(BOOL)animated
+{
+    CGFloat deltaDegree = delta / M_PI;
+    CGFloat deltaDeltaDegree = deltaDegree - floorf(deltaDegree);
+    if(deltaDeltaDegree < 0.001f)
+        return;
+    self.mapAngle += delta;
+    [self applyMapRotationAnimated: animated];
+}
+
+-(void)applyMapRotationAnimated:(BOOL)animated
+{
+    [self registerRotateEventByUser:NO];
+    CGFloat angle = (M_PI / -180) * self.mapAngle;
+    _mapTransform = CGAffineTransformMakeRotation(angle);
+    if(animated){
+        [UIView animateWithDuration: 0.5f
+                              delay: 0.0f
+                            options: UIViewAnimationOptionBeginFromCurrentState | UIViewAnimationCurveEaseInOut
+                         animations: ^(void) { _mapScrollView.transform = _mapTransform; }
+                         completion: ^(BOOL finished) {[self completeRotateEventAfterDelay:0];}];
+    }else{
+        _mapScrollView.transform = _mapTransform;
+        [self completeRotateEventAfterDelay:0];
+    }
+}
+
+#pragma mark -
+#pragma mark Map Overlay Views
+
+//Todo: test it!
+-(void)addMapOverlayView:(UIView *) overlayView
+{
+    [_mapScrollView addSubview:overlayView];
+    overlayView.frame = CGRectMake(0, 0, _mapScrollView.contentSize.width,
+                                   _mapScrollView.contentSize.height);
+}
+
+//Todo: test it!
+-(void)removeMapOverlayView:(UIView *) overlayView
+{
+    [overlayView removeFromSuperview];
+}
+
 @end
